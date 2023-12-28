@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Диета и точка</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <p class="header__logo">Диета и точка</p>
+    </header>
+    <main class="main">
+      <div class="container">
+        <section class="display">
+          <h1 class="display__title">Калькулятор калорий на день</h1>
+          <ul class="info">
+            <li class="info__item">
+              <h2 class="info__header">Жиры, г</h2>
+              <p class="info__text" id="fats">-</p>
+            </li>
+            <li class="info__item">
+              <h2 class="info__header">Белки, г</h2>
+              <p class="info__text" id="proteins">-</p>
+            </li>
+            <li class="info__item">
+              <h2 class="info__header">Углеводы, г</h2>
+              <p class="info__text" id="hydrocarbons">-</p>
+            </li>
+            <li class="info__item">
+              <h2 class="info__header">Калории, ккал</h2>
+              <p class="info__text" id="callories">-</p>
+            </li>
+            <li class="info__item">
+              <h2 class="info__header">Норма калорий, ккал</h2>
+              <p class="info__text" id="norm">-</p>
+              <button class="info__change-norm">Изменить</button>
+            </li>
+          </ul>
+        </section>
+        <section class="food">
+          <button class="food__button">Очистить все приёмы пищи</button>
+          <div class="card" id="breakfast">
+            <div class="card__header">
+              <h2 class="card__title">Завтрак</h2>
+              <button class="card__add-button" type="button">+</button>
+            </div>
+            <div class="card__display">
+              <p class="card__calories"></p>
+              <button type="button" class="card__button">></button>
+            </div>
+            <ul class="card__food"></ul>
+          </div>
+          <div class="card" id="lunch">
+            <div class="card__header">
+              <h2 class="card__title">Обед</h2>
+              <button class="card__add-button" type="button">+</button>
+            </div>
+            <div class="card__display">
+              <div class="card__info">
+                <p class="card__calories"></p>
+              </div>
+              <button type="button" class="card__button">></button>
+            </div>
+            <ul class="card__food"></ul>
+          </div>
+          <div class="card" id="dinner">
+            <div class="card__header">
+              <h2 class="card__title">Ужин</h2>
+              <button class="card__add-button" type="button">+</button>
+            </div>
+            <div class="card__display">
+              <div class="card__info">
+                <p class="card__calories"></p>
+              </div>
+              <button type="button" class="card__button">></button>
+            </div>
+            <ul class="card__food"></ul>
+          </div>
+          <div class="card" id="nosh">
+            <div class="card__header">
+              <h2 class="card__title">Перекус</h2>
+              <button class="card__add-button" type="button">+</button>
+            </div>
+            <div class="card__display">
+              <div class="card__info">
+                <p class="card__calories"></p>
+              </div>
+              <button type="button" class="card__button">></button>
+            </div>
+            <ul class="card__food"></ul>
+          </div>
+        </section>
+        <section class="statistics">
+          <h2 class="statistics__title">Статистика</h2>
+          <div class="statistics__container">
+            <canvas class="statistics__canvas" width="300" height="300"
+              >Круговая диаграма соотношения завтрака обеда и ужина</canvas
+            >
+            <ul class="statistics__info">
+              <li class="statistics__item statistics__item_type_breakfast">
+                <p class="statistics__header">завтрак:</p>
+                <p class="statistics__text" id="statistics-breakfast"></p>
+              </li>
+              <li class="statistics__item statistics__item_type_lunch">
+                <p class="statistics__header">обед:</p>
+                <p class="statistics__text" id="statistics-lunch"></p>
+              </li>
+              <li class="statistics__item statistics__item_type_dinner">
+                <p class="statistics__header">ужин:</p>
+                <p class="statistics__text" id="statistics-dinner">1</p>
+              </li>
+              <li class="statistics__item statistics__item_type_nosh">
+                <p class="statistics__header">перекус:</p>
+                <p class="info__text" id="statistics-nosh"></p>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&#169;2023</p>
+    </footer>
+    <div class="popup" id="popup-add-food">
+      <div class="popup__container">
+        <h2 class="popup__title">Добавить блюдо</h2>
+        <button class="popup__close-button" type="button">+</button>
+        <form class="popup__form" name="addForm">
+          <input type="text" class="popup__search" />
+          <div class="popup__display">
+            <button class="popup__new-food">+ Новое блюдо</button>
+            <select id="select" class="popup__select">
+              <option class="popup__option" value="none" disabled selected>
+                Сортировать
+              </option>
+              <option class="popup__option" value="calories">
+                По калорийности
+              </option>
+              <option class="popup__option" value="name">По названию</option>
+            </select>
+          </div>
+          <div class="popup__radio-form" name="foodForm"></div>
+          <input
+            type="number"
+            class="popup__input"
+            id="weight-input"
+            required
+            min="1"
+            max="5000"
+            placeholder="Введите массу блюда в граммах"
+          />
+          <button class="popup__submit" type="submit">Выбрать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="popup-new-food">
+      <div class="popup__container">
+        <h2 class="popup__title">Добавить новое блюдо</h2>
+        <button class="popup__close-button" type="button">+</button>
+        <form class="popup__form" name="newFoodForm">
+          <input
+            type="text"
+            class="popup__input"
+            name="name"
+            min="2"
+            max="50"
+            required
+            placeholder="Введите название блюда"
+          />
+          <input
+            type="number"
+            class="popup__input"
+            name="calories"
+            required
+            placeholder="Введите количество калорий в 100г блюда"
+          />
+          <input
+            type="number"
+            class="popup__input"
+            name="proteins"
+            required
+            placeholder="Введите количество белков в 100г блюда"
+          />
+          <input
+            type="number"
+            class="popup__input"
+            name="fats"
+            required
+            placeholder="Введите количество жиров в 100г блюда"
+          />
+          <input
+            type="number"
+            class="popup__input"
+            name="hydrocarbons"
+            min="1"
+            required
+            placeholder="Введите количество углеводов в 100г блюда"
+          />
+          <button class="popup__submit" type="submit">Добавить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="popup-add-food">
+      <div class="popup__container">
+        <h2 class="popup__title">Добавить блюдо</h2>
+        <button class="popup__close-button" type="button">+</button>
+        <form class="popup__form" name="addForm">
+          <input type="text" class="popup__search" />
+          <button class="popup__new-food">+ Новое блюдо</button>
+          <div class="popup__radio-form" name="foodForm"></div>
+          <input
+            type="number"
+            class="popup__input"
+            id="weight-input"
+            required
+            min="1"
+            max="5000"
+            placeholder="Введите массу блюда в граммах"
+          />
+          <button class="popup__submit" type="submit">Выбрать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="popup-new-norm">
+      <div class="popup__container">
+        <h2 class="popup__title">Изменить норму калорий</h2>
+        <button class="popup__close-button" type="button">+</button>
+        <form class="popup__form" name="changeNormForm">
+          <input
+            type="number"
+            class="popup__input"
+            name="norm"
+            min="800"
+            max="10000"
+            required
+            placeholder="Введите количество калорий на день"
+          />
+          <button class="popup__submit" type="submit">Изменить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup" id="alert">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button">+</button>
+        <h2 class="popup__warning">Превышена дневная норма калорий!!!</h2>
+      </div>
+    </div>
+    <template id="food-card-template">
+      <li class="food-card">
+        <h3 class="food-card__name"></h3>
+        <div class="food-card__info">
+          <p class="food-card__weight"></p>
+          <p class="food-card__calories"></p>
+          <button class="food-card__delite">Удалить</button>
+        </div>
+      </li>
+    </template>
+    <template id="food-template">
+      <label class="popup__label">
+        <div class="popup__food-info">
+          <h3 class="popup__food"></h3>
+          <p class="popup__calories"></p>
+        </div>
+        <input type="radio" name="food" class="popup__radio" />
+      </label>
+    </template>
+  </body>
+</html>
