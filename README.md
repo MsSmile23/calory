@@ -14,3 +14,4 @@
 	Технические требования:
 Для хранения данных используйте localStorage.
 
+Превью https://mssmile23.github.io/calory/
